@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fallen Ship</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="FallenShip.css">
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <section class="section">
+        <div class="container" id="container">
+            <div class="columns" id="app">
+                <div v-if="showStatus" class="column has-background-grey-lighter" id="col-left">
+                    <strong>Status</strong>
+                    <p>Time: {{ counter }}</p> 
+                    <p>Energy: {{energy}}/{{maxEnergy}} ({{deltaEnergy}} W/s)</p>
+                    <p v-if="minerals>0">Minerals: {{ minerals }}</p> 
+                    <p>Life support status: {{ lifeSupport }}%</p> 
+                </div>
+                <div v-if="showCommands" class="column" id="col-center">
+                    <ship-module 
+                        v-for="m in shipModules"
+                        v-bind:title='m.title'
+                        v-bind:current_percent='m.current_percent'
+                        v-bind:current_action='m.current_action'
+                        v-bind:description='m.description'
+                        v-bind:buttons='m.buttons'>
+                    </ship-module>
+                    
+                </div>
+                <div class="column has-background-grey-lighter" id="col-right">
+                    <div >
+                        <p v-html=message></p>
+                        <p v-for="a in actions">
+                            <button v-on:click=a.action v-html=a.text></button>
+                        </p>
+                    </div>
+                </div>
+            </div> <!-- div columns -->
+        </div> <!-- div container -->
+    </section>
+    <script src="FallenShip.js"></script>
+    <script>const mountedApp = app.mount('#container')</script>
+
+</body>
+</html>
