@@ -73,8 +73,6 @@ const app = Vue.createApp({
       this.update()
     }, 1000);
     this.goTo(0);
-    this.showStatus = true;
-    this.showCommands = true;
   },
   methods: {
     update() {
